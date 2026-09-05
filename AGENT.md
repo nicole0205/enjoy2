@@ -43,6 +43,23 @@ works in the browser; that is the whole bar.
   `app.getPath` and `app.isPackaged`; anything else reached for will fail here.
   See `enjoy/src/web/README.md`.
 
+## Commit and push every finished feature
+
+A feature that works in the browser is not finished until it is on the remote.
+Once a change is verified, commit it and push it to `origin` (currently
+`git@github.com:nicole0205/enjoy2.git`) without waiting to be asked.
+
+- **Commit on your own.** Do not stop to ask whether to commit a change you
+  just finished and verified; the ask is standing.
+- **Push right after committing.** `git push` to `origin main` — this fork is
+  worked on directly on `main`, so no branch or pull request is needed.
+- **One commit per feature.** Keep unrelated work out of it, and write the
+  message about what the change does, not about the files it touched.
+- **Do not commit work that does not run.** If the feature is half-done or
+  fails in Local Web Enjoy, leave it uncommitted and say what is left.
+- **Ask before anything that rewrites history** — amending a pushed commit,
+  rebasing, force-pushing. Only ordinary commit-and-push is automatic.
+
 ## The other workspaces
 
 `1000-hours` and `1000h-portal` are untouched by this. Nothing above applies to
