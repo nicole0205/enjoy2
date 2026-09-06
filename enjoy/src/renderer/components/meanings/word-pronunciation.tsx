@@ -1,5 +1,6 @@
-import { useEffect, useMemo, useState } from "react";
+import { useMemo } from "react";
 import { Button } from "@renderer/components/ui";
+import { SpeakButton } from "@renderer/components";
 import { useCamdict } from "@renderer/hooks";
 import { Volume2Icon } from "lucide-react";
 
@@ -80,46 +81,10 @@ WordPronunciation.displayName = "WordPronunciation";
  * The fallback, drawn only when the dictionary has no recording of the word.
  *
  * It says nothing about how the word is pronounced — there is no IPA to show —
- * so it is a speaker on its own, and it is not drawn at all in a browser
- * without a voice installed for the language.
+ * so it is a speaker on its own, and `SpeakButton` draws nothing at all in a
+ * browser without a voice installed for the language.
  */
 const SynthesizedPronunciation = (props: {
   word: string;
   className?: string;
-}) => {
-  const { word, className = "" } = props;
-  const [available, setAvailable] = useState<boolean>(false);
-
-  useEffect(() => {
-    const synth = window.speechSynthesis;
-    if (!synth) return;
-
-    // Voices load asynchronously in Chrome, and the first call routinely
-    // answers with an empty list.
-    const check = () => setAvailable(synth.getVoices().length > 0);
-    check();
-    synth.addEventListener("voiceschanged", check);
-
-    return () => synth.removeEventListener("voiceschanged", check);
-  }, []);
-
-  if (!available) return null;
-
-  const speak = () => {
-    const utterance = new SpeechSynthesisUtterance(word);
-    utterance.lang = "en-US";
-    window.speechSynthesis.cancel();
-    window.speechSynthesis.speak(utterance);
-  };
-
-  return (
-    <Button
-      variant="ghost"
-      size="icon"
-      className={`rounded-full size-6 p-0 border border-secondary ${className}`}
-      onClick={speak}
-    >
-      <Volume2Icon className="size-4" />
-    </Button>
-  );
-};
+}) => <SpeakButton text={props.word} className={props.className} />;

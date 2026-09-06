@@ -4,6 +4,15 @@ import { useCamdict } from "@renderer/hooks";
 import { Volume2Icon } from "lucide-react";
 import { t } from "i18next";
 
+/**
+ * The Cambridge entry for a word: how it is said, what it means, and — under
+ * each sense — the sentences Cambridge uses to show it being used.
+ *
+ * The examples were always in the shipped dictionary, one list per sense; only
+ * the definitions were ever drawn. A definition on its own says what a word
+ * means and not how anyone would say it, which is the half a learner is
+ * actually looking a word up for.
+ */
 export const CamdictLookupResult = (props: {
   word: string;
   context?: string;
@@ -63,10 +72,22 @@ export const CamdictLookupResult = (props: {
                   </div>
                 ))}
               </div>
-              <ul className="list-disc pl-4">
+              <ul className="list-disc pl-4 space-y-2">
                 {posItem.definitions.map((def, i) => (
                   <li key={`pos-${i}`} className="">
                     {def.definition}
+                    {def.examples?.length > 0 && (
+                      <ul className="mt-1 space-y-1">
+                        {def.examples.map((example, j) => (
+                          <li
+                            key={`example-${i}-${j}`}
+                            className="text-sm italic text-muted-foreground font-serif"
+                          >
+                            {example}
+                          </li>
+                        ))}
+                      </ul>
+                    )}
                   </li>
                 ))}
               </ul>

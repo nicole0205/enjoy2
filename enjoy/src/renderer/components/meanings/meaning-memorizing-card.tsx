@@ -4,7 +4,7 @@ import { Button, ScrollArea, Separator } from "@renderer/components/ui";
 import Mark from "mark.js";
 import { useHotkeys } from "react-hotkeys-hook";
 import { HotKeysSettingsProviderContext } from "@renderer/context";
-import { Sentence, WordPronunciation } from "@renderer/components";
+import { Sentence, SpeakButton, WordPronunciation } from "@renderer/components";
 
 export const MeaningMemorizingCard = (props: { meaning: MeaningType }) => {
   const {
@@ -73,9 +73,12 @@ const FrontSide = (props: {
         <div className="px-6 text-lg font-serif">
           <div ref={ref} className="">
             {lookups.map((lookup) => (
-              <p key={lookup.id} className="mb-8">
-                <Sentence sentence={lookup.context} />
-              </p>
+              <div key={lookup.id} className="mb-8 flex items-start gap-2">
+                <SpeakButton text={lookup.context} className="mt-1" />
+                <p className="flex-1">
+                  <Sentence sentence={lookup.context} />
+                </p>
+              </div>
             ))}
           </div>
         </div>
@@ -162,10 +165,13 @@ const BackSide = (props: { meaning: MeaningType; onFlip: () => void }) => {
         <div className="px-6 text-lg font-serif">
           <div ref={ref} className="">
             {lookups.map((lookup) => (
-              <div key={lookup.id} className="mb-8">
-                <Sentence sentence={lookup.context} />
-                <div className="text-base mt-2">
-                  {lookup.contextTranslation}
+              <div key={lookup.id} className="mb-8 flex items-start gap-2">
+                <SpeakButton text={lookup.context} className="mt-1" />
+                <div className="flex-1">
+                  <Sentence sentence={lookup.context} />
+                  <div className="text-base mt-2">
+                    {lookup.contextTranslation}
+                  </div>
                 </div>
               </div>
             ))}
