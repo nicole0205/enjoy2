@@ -36,3 +36,30 @@ export const sameVoice = (a?: VoiceSettings, b?: VoiceSettings): boolean => {
 /** Settings that actually say which voice they mean. */
 const settled = (settings?: VoiceSettings): settings is VoiceSettings =>
   Boolean(settings?.engine && settings?.model && settings?.voice);
+
+/**
+ * The settings a piece of text will actually be spoken with, given the app's
+ * and whatever it carries of its own.
+ *
+ * Field by field rather than one object over the other, and a blank is not an
+ * answer. A Diary or a Document keeps its own voice so that one piece can be
+ * spoken differently from the rest, but the forms that write those settings
+ * accepted an empty voice — so a piece saved before a voice was ever chosen
+ * carries a blank, and a blank taken as an override silences a perfectly good
+ * app-level voice. The failure then arrives at synthesis, telling the user to
+ * choose a voice in preferences where one is already chosen.
+ */
+export const resolveVoiceSettings = (
+  appConfig?: TtsConfigType,
+  own?: Partial<TtsConfigType>
+): TtsConfigType => {
+  const resolved = { ...(appConfig || {}) } as TtsConfigType;
+
+  for (const [key, value] of Object.entries(own || {})) {
+    if (value === "" || value === null || value === undefined) continue;
+
+    (resolved as any)[key] = value;
+  }
+
+  return resolved;
+};

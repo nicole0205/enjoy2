@@ -14,7 +14,7 @@ import {
   RefreshCwIcon,
 } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { sameVoice } from "@/voice-settings";
+import { resolveVoiceSettings, sameVoice } from "@/voice-settings";
 
 /**
  * Turns a Diary into something you can hear, and then into something you can
@@ -48,8 +48,10 @@ export const DiarySpeech = (props: { diary: DiaryType }) => {
 
   // What this Diary would be spoken in if it were spoken now. A Diary that has
   // never had its own settings falls back to the app's, which is the same
-  // fallback `useSpeech` makes at the point of synthesis.
-  const config = diary.config?.tts || ttsConfig;
+  // fallback `useSpeech` makes at the point of synthesis — and so does one
+  // whose own settings leave a field blank, which is what a Diary configured
+  // before any voice was chosen stores.
+  const config = resolveVoiceSettings(ttsConfig, diary.config?.tts);
 
   const findSpeech = async () => {
     if (!text) {

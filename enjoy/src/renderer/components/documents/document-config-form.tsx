@@ -19,17 +19,21 @@ import { TTSForm } from "@renderer/components";
 import { LoaderIcon } from "lucide-react";
 import { useContext, useState } from "react";
 import { AISettingsProviderContext } from "@renderer/context";
+import { resolveVoiceSettings } from "@/voice-settings";
 
 const documentConfigSchema = z.object({
   config: z.object({
     autoTranslate: z.boolean(),
     autoNextSpeech: z.boolean(),
     layout: z.enum(["horizontal", "vertical"]),
+    // Non-empty, the same as the app-level form: a blank voice saves cleanly
+    // and then fails at synthesis, one screen away from the field that caused
+    // it. Required here, the empty select says so where it can be fixed.
     tts: z.object({
-      engine: z.string(),
-      model: z.string(),
-      voice: z.string(),
-      language: z.string(),
+      engine: z.string().min(1),
+      model: z.string().min(1),
+      voice: z.string().min(1),
+      language: z.string().min(1),
     }),
   }),
 });
@@ -51,7 +55,10 @@ export const DocumentConfigForm = (props: {
   const form = useForm<z.infer<typeof documentConfigSchema>>({
     resolver: zodResolver(documentConfigSchema),
     defaultValues: config
-      ? { config }
+      ? // The Document's own settings where it has them, the app's where it
+        // does not, so a Document carrying a blank voice opens on the voice it
+        // would actually use rather than on nothing.
+        { config: { ...config, tts: resolveVoiceSettings(ttsConfig, config.tts) } }
       : {
           config: {
             autoTranslate: true,
