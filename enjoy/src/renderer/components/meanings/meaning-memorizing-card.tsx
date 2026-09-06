@@ -4,11 +4,11 @@ import { Button, ScrollArea, Separator } from "@renderer/components/ui";
 import Mark from "mark.js";
 import { useHotkeys } from "react-hotkeys-hook";
 import { HotKeysSettingsProviderContext } from "@renderer/context";
-import { Sentence } from "@renderer/components";
+import { Sentence, WordPronunciation } from "@renderer/components";
 
 export const MeaningMemorizingCard = (props: { meaning: MeaningType }) => {
   const {
-    meaning: { word, lookups },
+    meaning: { word, lookups = [] },
   } = props;
   const { currentHotkeys, enabled } = useContext(
     HotKeysSettingsProviderContext
@@ -103,7 +103,7 @@ const BackSide = (props: { meaning: MeaningType; onFlip: () => void }) => {
       pos,
       definition,
       translation,
-      lookups,
+      lookups = [],
     },
     onFlip,
   } = props;
@@ -128,9 +128,12 @@ const BackSide = (props: { meaning: MeaningType; onFlip: () => void }) => {
   return (
     <div className="flex flex-col h-full overflow-hidden">
       <ScrollArea className="flex-1">
-        <h2 className="py-8 text-4xl font-bold font-serif text-center">
+        <h2 className="pt-8 pb-4 text-4xl font-bold font-serif text-center">
           {word}
         </h2>
+        <div className="pb-4 flex items-center justify-center">
+          <WordPronunciation word={word} lemma={lemma} />
+        </div>
         <div className="px-6">
           <div className="mb-2">
             {pos && (

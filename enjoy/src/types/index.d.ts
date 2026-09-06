@@ -140,9 +140,10 @@ type TransactionStateType = {
 
 type LookupType = {
   id: string;
-  word: string;
+  meaningId?: string;
+  word?: string;
   context: string;
-  contextTranslation: string;
+  contextTranslation?: string;
   status?: "pending" | "completed" | "failed";
   meaning?: MeaningType;
   meaningOptions?: MeaningType[];
@@ -156,9 +157,11 @@ type MeaningType = {
   lemma?: string;
   pronunciation?: string;
   pos?: string;
-  definition: string;
-  translation: string;
-  lookups: LookupType[];
+  definition?: string;
+  translation?: string;
+  lookups?: LookupType[];
+  createdAt?: string;
+  updatedAt?: string;
 };
 
 type PagyResponseType = {

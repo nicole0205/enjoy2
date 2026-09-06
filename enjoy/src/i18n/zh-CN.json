@@ -967,5 +967,11 @@
   "startShadowing": "跟读练习",
   "saving": "保存中……",
   "deleteDiaryConfirm": "确定删除这篇日记吗？已经练习过的音频会保留。",
-  "diaryDeletedSuccessfully": "日记已删除"
+  "diaryDeletedSuccessfully": "日记已删除",
+  "saveToVocabulary": "加入单词本",
+  "savedToVocabulary": "已把“{{word}}”加入单词本",
+  "inVocabulary": "已在单词本",
+  "removedFromVocabulary": "已把“{{word}}”移出单词本",
+  "vocabularyIsEmpty": "单词本还是空的",
+  "vocabularyIsEmptyDescription": "练习时查一个词，把它存进来，之后就能在这里复习。"
 }

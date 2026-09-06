@@ -249,6 +249,15 @@ export const channels: Namespace = {
 
   diaries: crud("diaries"),
 
+  // The vocabulary book, which has no `update`: a word is saved, met again, or
+  // dropped, and saving it again is what edits the entry.
+  meanings: {
+    findAll: invoke("meanings-find-all"),
+    findOne: invoke("meanings-find-one"),
+    create: invoke("meanings-create"),
+    destroy: invoke("meanings-destroy"),
+  },
+
   documents: crud("documents", {
     upload: invoke("documents-upload"),
     cleanUp: invoke("documents-clean-up"),

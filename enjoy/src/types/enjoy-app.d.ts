@@ -454,6 +454,21 @@ type EnjoyAppType = {
     update: (id: string, params: any) => Promise<DiaryType>;
     destroy: (id: string) => Promise<void>;
   };
+  meanings: {
+    findAll: (params?: any) => Promise<MeaningType[]>;
+    findOne: (params: any) => Promise<MeaningType | undefined>;
+    create: (params: {
+      word: string;
+      lemma?: string;
+      pronunciation?: string;
+      pos?: string;
+      definition?: string;
+      translation?: string;
+      context?: string;
+      contextTranslation?: string;
+    }) => Promise<MeaningType>;
+    destroy: (id: string) => Promise<void>;
+  };
   documents: {
     findAll: (params?: any) => Promise<DocumentEType[]>;
     findOne: (params: any) => Promise<DocumentEType>;

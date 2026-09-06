@@ -41,8 +41,10 @@ Run it with `yarn workspace enjoy web`, which starts both halves:
   can name it. Emptied at startup; see [ADR 0005](../../docs/adr/0005-stage-dropped-files-before-importing.md).
 - `bootstrap.ts` — seeds the local user and the profile record, and registers
   the handlers served: settings, the database (which registers every model
-  handler itself), and the three behind playing a Media — waveform, ffmpeg and
-  echogarden.
+  handler itself), the three behind playing a Media — waveform, ffmpeg and
+  echogarden — and the three behind looking a word up: camdict, dict and mdict,
+  which under Electron are registered by the window module this distribution
+  replaces.
 - `fake-web-api.ts` — stands in for `@/api`, Hosted Enjoy's client, on both
   sides of the wire. Every method resolves to an empty object, except the three
   call sites that read the result rather than merely holding it.

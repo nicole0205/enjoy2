@@ -24,6 +24,7 @@ import {
   PronunciationAssessmentFulltextResult,
   PronunciationAssessmentScoreResult,
   PronunciationAssessmentPhonemeResult,
+  WordPronunciation,
 } from "@renderer/components";
 import {
   ChevronLeft,
@@ -164,7 +165,8 @@ export const LookupWidget = () => {
                   </div>
                 </div>
 
-                <div className="">
+                <div className="flex items-center gap-3 flex-wrap">
+                  <WordPronunciation word={current} />
                   <VocabularyPronunciationAssessment word={current} />
                 </div>
               </div>
@@ -177,7 +179,10 @@ export const LookupWidget = () => {
                     sourceType={selected?.sourceType}
                   />
                 ) : currentDictValue === "cambridge" ? (
-                  <CamdictLookupResult word={selected?.word} />
+                  <CamdictLookupResult
+                    word={selected?.word}
+                    context={selected?.context}
+                  />
                 ) : (
                   <DictLookupResult word={current} onJump={handleLookup} />
                 )}

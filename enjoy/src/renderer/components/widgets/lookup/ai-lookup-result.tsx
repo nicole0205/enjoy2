@@ -2,6 +2,7 @@ import { useEffect, useContext, useState } from "react";
 import { AppSettingsProviderContext } from "@renderer/context";
 import { Button, toast } from "@renderer/components/ui";
 import { useAiCommand } from "@renderer/hooks";
+import { VocabularyButton, WordPronunciation } from "@renderer/components";
 import { LoaderIcon } from "lucide-react";
 import { t } from "i18next";
 import { md5 } from "js-md5";
@@ -80,6 +81,11 @@ export const AiLookupResult = (props: {
 
   if (!word) return null;
 
+  // The AI dictionary answers in the shape its prompt asks for, and the
+  // sentence translation comes back on the meaning under the prompt's own
+  // snake_case name rather than as a field of the lookup.
+  const contextTranslation = (result?.meaning as any)?.context_translation;
+
   return (
     <>
       {result ? (
@@ -102,10 +108,25 @@ export const AiLookupResult = (props: {
                   <span className="text-sm">({result.meaning.lemma})</span>
                 )}
             </div>
+            <WordPronunciation
+              word={word}
+              lemma={result.meaning?.lemma}
+              className="mb-2"
+            />
             <div className="text-serif">{result.meaning.translation}</div>
             <div className="text-serif">{result.meaning.definition}</div>
           </div>
-          <div className="flex items-center">
+          <div className="flex items-center gap-2 flex-wrap">
+            <VocabularyButton
+              word={word}
+              lemma={result.meaning?.lemma}
+              pronunciation={result.meaning?.pronunciation}
+              pos={result.meaning?.pos}
+              definition={result.meaning?.definition}
+              translation={result.meaning?.translation}
+              context={context}
+              contextTranslation={contextTranslation}
+            />
             <Button
               className="cursor-pointer"
               variant="secondary"

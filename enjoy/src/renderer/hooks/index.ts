@@ -9,6 +9,7 @@ export * from "./use-recordings";
 export * from "./use-pronunciation-assessments";
 export * from "./use-segments";
 export * from "./use-transcribe";
+export * from "./use-vocabulary";
 export * from "./use-transcriptions";
 export * from "./use-video";
 export * from "./use-chat-member";

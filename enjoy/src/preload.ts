@@ -790,6 +790,20 @@ contextBridge.exposeInMainWorld("__ENJOY_APP__", {
       return ipcRenderer.invoke("diaries-destroy", id);
     },
   },
+  meanings: {
+    findAll: (params: any) => {
+      return ipcRenderer.invoke("meanings-find-all", params);
+    },
+    findOne: (params: any) => {
+      return ipcRenderer.invoke("meanings-find-one", params);
+    },
+    create: (params: any) => {
+      return ipcRenderer.invoke("meanings-create", params);
+    },
+    destroy: (id: string) => {
+      return ipcRenderer.invoke("meanings-destroy", id);
+    },
+  },
   documents: {
     findAll: (params: any) => {
       return ipcRenderer.invoke("documents-find-all", params);

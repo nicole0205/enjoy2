@@ -1,5 +1,8 @@
 import settings from "@main/settings";
 import db from "@main/db";
+import camdict from "@main/camdict";
+import dict from "@main/dict";
+import mdict from "@main/mdict";
 import echogarden from "@main/echogarden";
 import Ffmpeg from "@main/ffmpeg";
 import { Waveform } from "@main/waveform";
@@ -31,6 +34,14 @@ export const bootstrap = () => {
   new Waveform().registerIpcHandlers();
   new Ffmpeg().registerIpcHandlers();
   echogarden.registerIpcHandlers();
+
+  // Looking a word up. Under Electron these three are registered by
+  // `@main/window`, which this distribution replaces with an outlet and nothing
+  // else — so every dictionary in the picker answered 404 and the picker's own
+  // default, Cambridge, was the emptiest of them.
+  camdict.registerIpcHandlers();
+  dict.registerIpcHandlers();
+  mdict.registerIpcHandlers();
 };
 
 const seedLocalUser = () => {

@@ -100,6 +100,18 @@ Diary is a standalone piece of writing you practise against, a Note is an
 annotation on somebody else's sentence, and is never shadowed.
 _Avoid_: annotation, comment, memo
 
+**Meaning**:
+A word you saved, and what a dictionary said it means — its part of speech,
+pronunciation, definition and translation. One per word: the vocabulary book is
+a list of words to review, not a list of the times you met them.
+_Avoid_: entry, definition, word card, 生词
+
+**Lookup**:
+One sentence you met a saved word in, kept under its Meaning along with that
+sentence's translation. Where a Meaning is what the word means, a Lookup is
+where you found it, which is what the front of the memorizing card shows.
+_Avoid_: occurrence, citation, example
+
 ## Distributions
 
 **Desktop Enjoy**:

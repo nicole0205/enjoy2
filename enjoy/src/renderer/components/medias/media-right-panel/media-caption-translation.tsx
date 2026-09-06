@@ -15,6 +15,7 @@ import {
   TranslateResult,
   DictSelect,
   VocabularyPronunciationAssessment,
+  WordPronunciation,
 } from "@renderer/components";
 
 /*
@@ -110,13 +111,16 @@ const SelectedWords = (props: {
         </div>
       </div>
 
-      <VocabularyPronunciationAssessment word={word} />
+      <div className="flex items-center gap-3 flex-wrap">
+        <WordPronunciation word={word} />
+        <VocabularyPronunciationAssessment word={word} />
+      </div>
 
       <Separator className="my-4" />
 
       <div className="rounded-lg overflow-hidden mr-10">
         {currentDictValue === "cambridge" ? (
-          <CamdictLookupResult word={word} />
+          <CamdictLookupResult word={word} context={caption.text} />
         ) : currentDictValue === "ai" ? (
           <AiLookupResult
             word={word}

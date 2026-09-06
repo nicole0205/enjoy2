@@ -967,5 +967,11 @@
   "startShadowing": "Shadow this",
   "saving": "Saving...",
   "deleteDiaryConfirm": "Are you sure to delete this diary? The audio you have already practised against will be kept.",
-  "diaryDeletedSuccessfully": "Diary deleted successfully"
+  "diaryDeletedSuccessfully": "Diary deleted successfully",
+  "saveToVocabulary": "Save to vocabulary",
+  "savedToVocabulary": "Saved \"{{word}}\" to your vocabulary",
+  "inVocabulary": "In vocabulary",
+  "removedFromVocabulary": "Removed \"{{word}}\" from your vocabulary",
+  "vocabularyIsEmpty": "Your vocabulary is empty",
+  "vocabularyIsEmptyDescription": "Look a word up while you practise, then save it here to review it later."
 }

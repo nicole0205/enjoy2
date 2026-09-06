@@ -967,5 +967,11 @@
   "startShadowing": "Practicar shadowing",
   "saving": "Guardando...",
   "deleteDiaryConfirm": "¿Seguro que quieres eliminar este diario? El audio con el que ya has practicado se conservará.",
-  "diaryDeletedSuccessfully": "Diario eliminado correctamente"
+  "diaryDeletedSuccessfully": "Diario eliminado correctamente",
+  "saveToVocabulary": "Guardar en el vocabulario",
+  "savedToVocabulary": "\"{{word}}\" guardada en tu vocabulario",
+  "inVocabulary": "En el vocabulario",
+  "removedFromVocabulary": "\"{{word}}\" eliminada de tu vocabulario",
+  "vocabularyIsEmpty": "Tu vocabulario está vacío",
+  "vocabularyIsEmptyDescription": "Busca una palabra mientras practicas y guárdala aquí para repasarla después."
 }

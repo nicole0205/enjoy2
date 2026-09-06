@@ -6,6 +6,7 @@ export * from "./chat-messages-handler";
 export * from "./chats-handler";
 export * from "./conversations-handler";
 export * from "./diaries-handler";
+export * from "./meanings-handler";
 export * from "./messages-handler";
 export * from "./notes-handler";
 export * from "./pronunciation-assessments-handler";
