@@ -244,6 +244,7 @@
   "playInLoop": "单句循环",
   "playNextSegment": "播放下一句",
   "playPreviousSegment": "播放上一句",
+  "replaySegment": "重复播放本句",
   "playbackSpeed": "播放速度",
   "zoomIn": "放大",
   "zoomOut": "缩小",

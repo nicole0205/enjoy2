@@ -244,6 +244,7 @@
   "playInLoop": "play in loop",
   "playNextSegment": "play next segment",
   "playPreviousSegment": "play previous segment",
+  "replaySegment": "replay segment",
   "playbackSpeed": "playback speed",
   "zoomIn": "zoom in",
   "zoomOut": "zoom out",

@@ -86,6 +86,32 @@ export const MediaPlayerControls = () => {
     setCurrentSegmentIndex(currentSegmentIndex + 1);
   };
 
+  /**
+   * Says the current sentence again, from its beginning.
+   *
+   * Not a play mode and not a toggle: the sentence is repeated once, whether it
+   * was playing, paused part way through, or already finished — which is what
+   * shadowing asks for, one more listen before the next attempt. `loop` in the
+   * play-mode menu is the other thing, a sentence that keeps coming back until
+   * the mode is changed.
+   *
+   * Seeking before playing rather than calling `play(start)` so that a
+   * repeat pressed while paused leaves the waveform where the ear is.
+   */
+  const onReplay = () => {
+    if (!wavesurfer) return;
+    const segment = transcription?.result?.timeline?.[currentSegmentIndex];
+    if (!segment) return;
+
+    const start = parseFloat(segment.startTime.toFixed(6));
+    wavesurfer.setTime(start);
+    wavesurfer.setScrollTime(start);
+
+    if (!wavesurfer.isPlaying()) {
+      wavesurfer.play();
+    }
+  };
+
   /*
    * Update segmentRegion when currentSegmentIndex is updated
    * or when editingRegion is toggled.
@@ -435,6 +461,15 @@ export const MediaPlayerControls = () => {
     currentHotkeys.PlayNextSegment,
     () => {
       findAndClickElement("media-play-next-button");
+    },
+    {
+      preventDefault: true,
+    }
+  );
+  useHotkeys(
+    currentHotkeys.ReplaySegment,
+    () => {
+      onReplay();
     },
     {
       preventDefault: true,

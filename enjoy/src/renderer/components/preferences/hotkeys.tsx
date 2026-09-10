@@ -189,6 +189,25 @@ export const Hotkeys = () => {
 
         <div className="flex items-center justify-between py-4">
           <div className="flex items-center space-x-2 capitalize">
+            {t("replaySegment")}
+          </div>
+          <kbd
+            onClick={() =>
+              handleItemSelected({
+                name: t("replaySegment"),
+                keyName: "ReplaySegment",
+              })
+            }
+            className="bg-muted px-2 py-1 rounded-md text-sm text-muted-foreground cursor-pointer"
+          >
+            {currentHotkeys.ReplaySegment}
+          </kbd>
+        </div>
+
+        <Separator />
+
+        <div className="flex items-center justify-between py-4">
+          <div className="flex items-center space-x-2 capitalize">
             {t("increasePlaybackRate")}
           </div>
           <kbd

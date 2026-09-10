@@ -244,6 +244,7 @@
   "playInLoop": "reproducir en bucle",
   "playNextSegment": "reproducir siguiente segmento",
   "playPreviousSegment": "reproducir segmento anterior",
+  "replaySegment": "repetir segmento",
   "playbackSpeed": "velocidad de reproducción",
   "zoomIn": "acercar",
   "zoomOut": "alejar",

@@ -24,7 +24,8 @@ function isShortcutValid(shortcut: string) {
 
 function mergeWithPreference(
   a: Record<string, string>, // electron settings's cached value
-  b: Record<string, string> // current version's default value
+  b: Record<string, string>, // current version's default value
+  retired: Record<string, string> = {} // defaults this version replaced
 ): Record<string, string> {
   const c: Record<string, string> = {};
 
@@ -33,9 +34,18 @@ function mergeWithPreference(
   }
 
   for (const key in a) {
-    if (key in b) {
-      c[key] = a[key];
+    if (!(key in b)) continue;
+
+    // A stored binding that is only the old default is not a choice the user
+    // made — it is what the app handed them. Every settings file written
+    // before the default changed carries one, and keeping it would mean the
+    // new default reaches nobody who has already run the app. A binding the
+    // user actually changed differs from the old default, and is kept.
+    if (retired[key] && a[key].toLowerCase() === retired[key].toLowerCase()) {
+      continue;
     }
+
+    c[key] = a[key];
   }
 
   return c;
@@ -54,8 +64,12 @@ const defaultKeyMap = {
   PlayOrPause: "Space",
   StartOrStopRecording: "R",
   PlayOrPauseRecording: `${ControlOrCommand}+R`,
-  PlayPreviousSegment: "P",
-  PlayNextSegment: "N",
+  // The arrow keys, because shadowing is done one sentence at a time with a
+  // hand on the keyboard and nothing else to press: left and right step
+  // between sentences, down says the current one again.
+  PlayPreviousSegment: "Left",
+  PlayNextSegment: "Right",
+  ReplaySegment: "Down",
   Compare: "C",
   PronunciationAssessment: "A",
   IncreasePlaybackRate: "]",
@@ -65,6 +79,16 @@ const defaultKeyMap = {
 };
 
 export type Hotkey = keyof typeof defaultKeyMap;
+
+/**
+ * What a binding used to default to, for the bindings whose default has since
+ * changed. Read by `mergeWithPreference`, which treats a stored value equal to
+ * one of these as the old default rather than as a preference.
+ */
+const retiredDefaults: Partial<Record<Hotkey, string>> = {
+  PlayPreviousSegment: "P",
+  PlayNextSegment: "N",
+};
 
 function checkKeyAndValue(
   key: Hotkey,
@@ -168,7 +192,11 @@ export const HotKeysSettingsProvider = ({
       UserSettingKeyEnum.HOTKEYS
     );
     // During version iterations, there may be added or removed keys.
-    const merged = mergeWithPreference(_hotkeys ?? {}, defaultKeyMap);
+    const merged = mergeWithPreference(
+      _hotkeys ?? {},
+      defaultKeyMap,
+      retiredDefaults
+    );
     await EnjoyApp.userSettings
       .set(UserSettingKeyEnum.HOTKEYS, merged)
       .then(() => {
